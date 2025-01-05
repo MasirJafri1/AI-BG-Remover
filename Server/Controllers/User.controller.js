@@ -5,6 +5,8 @@ import userModel from "../Models/User.model.js";
 
 // http://localhost:4000/api/user/webhooks
 const clerkWebhooks = async (req, res) => {
+  console.log(req.headers);
+
   try {
     //creating instance with Clerk webhook secret
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
@@ -58,4 +60,17 @@ const clerkWebhooks = async (req, res) => {
   }
 };
 
-export { clerkWebhooks };
+// API controller to get user available credit data
+
+const userCredits = async (req, res) => {
+  try {
+    const { clerkId } = req.body;
+    const userData = await userModel.findOne({ clerkId });
+    res.json({ success: true, credits: userData.creditBalance });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export { clerkWebhooks, userCredits };

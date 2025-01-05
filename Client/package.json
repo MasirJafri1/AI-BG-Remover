@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.21.0",
+    "axios": "^1.7.9",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
+    "react-toastify": "^11.0.2",
     "toastify": "^2.0.1"
   },
   "devDependencies": {

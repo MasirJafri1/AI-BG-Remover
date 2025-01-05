@@ -5,10 +5,12 @@ import Result from "./pages/Result";
 import BuyCredits from "./pages/BuyCredits";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
+      <ToastContainer position="bottom-right" />
       {/* Header Section */}
       <header className="sticky top-0 z-50 backdrop-blur-sm bg-slate-50/80 border-b border-slate-100">
         <Navbar />
