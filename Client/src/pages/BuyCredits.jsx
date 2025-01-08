@@ -1,7 +1,85 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets, plans } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
+import { useAuth } from "@clerk/clerk-react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const BuyCredits = () => {
+  const { backendUrl, loadCreditsData } = useContext(AppContext);
+
+  const navigate = useNavigate();
+
+  const { getToken } = useAuth();
+
+  const initPay = async (order) => {
+    const options = {
+      key: import.meta.env.RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: "Credits Payment",
+      description: "credits Payment",
+      order_id: order.id,
+      receipt: order.receipt,
+      handler: async (response) => {
+        console.log(response);
+
+        const token = await getToken();
+
+        try {
+          const { data } = await axios.post(
+            backendUrl + "/api/user/verify-razor",
+            response,
+            {
+              headers: { token },
+            }
+          );
+
+          if (data.success) {
+            loadCreditsData();
+            navigate("/");
+            toast.success("Credits Added Successfully");
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error(error.message);
+        }
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  const paymentRazorPay = async (planId) => {
+    try {
+      const token = await getToken();
+
+      const { data } = await axios.post(
+        backendUrl + "/api/user/pay-razor",
+        { planId },
+        {
+          headers: {
+            token,
+          },
+        }
+      );
+
+      if (data.success) {
+        initPay(data.order);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.info(
+        "Payment Gateway is not integrated yet, You can contact MasirJafri on LinkedIn for purchasing credits instead ",
+        {
+          autoClose: 10000,
+        }
+      );
+    }
+  };
+
   return (
     <div className="min-h-[90vh] text-center pt-14 mb-8 bg-slate-50">
       <button className="inline-flex items-center justify-center rounded-full px-8 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-slate-100 hover:bg-slate-200 border border-slate-200 shadow-sm mb-8">
@@ -43,7 +121,10 @@ const BuyCredits = () => {
                   / {item.credits} credits
                 </span>
               </div>
-              <button className="w-full inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-slate-900 text-slate-50 shadow hover:bg-slate-800">
+              <button
+                onClick={() => paymentRazorPay(item.id)}
+                className="w-full inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-slate-900 text-slate-50 shadow hover:bg-slate-800"
+              >
                 Purchase Plan
               </button>
             </div>
