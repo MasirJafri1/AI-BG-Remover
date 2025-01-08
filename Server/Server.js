@@ -10,11 +10,24 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 await connectDB();
 
+//allowed Origins
+const allowedOrigins = [
+  "https://blankify-io.vercel.app",
+  "http://localhost:5173",
+];
+
 //MiddleWares
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, 
   })
 );
 
