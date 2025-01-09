@@ -10,17 +10,18 @@ const Header = () => {
       {/* Left Side  */}
       <div>
         <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-bold text-neutral-700 leading-tight">
-          Remove the <br className="max-md:hidden" />{" "}
+          Remove Image <br className="max-md:hidden" />{" "}
           <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
-            background
+            Background
           </span>{" "}
-          from <br className="max-md:hidden" /> images for free.
+          Quickly <br className="max-md:hidden" /> and Affordably.
         </h1>
         <p className="my-6 text-[15px] text-gray-500">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. <br className="max-sm:hidden" />
-          Lorem Ipsum has been the industry's standard dummy text ever.
+          Remove backgrounds with ease using Blankify.io.{" "}
+          <br className="max-sm:hidden" />
+          Get studio-quality results in just a few seconds.{" "}
         </p>
+
         <div>
           <input
             onChange={(e) => {

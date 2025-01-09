@@ -14,7 +14,9 @@ const Steps = () => {
           <div>
             <p className="text-xl font-medium">Upload image</p>
             <p className="text-sm text-neutral-500 mt-1">
-              This is a demo text, will replace it later. <br /> This is a demo
+              Start by uploading the image you <br /> want to edit. Simply drag
+              and <br />
+              drop or click to select the file.
             </p>
           </div>
         </div>
@@ -24,7 +26,9 @@ const Steps = () => {
           <div>
             <p className="text-xl font-medium">Remove background</p>
             <p className="text-sm text-neutral-500 mt-1">
-              This is a demo text, will replace it later. <br /> This is a demo
+              Use our AI-powered tool to <br /> automatically remove the
+              background <br />
+              in just seconds.
             </p>
           </div>
         </div>
@@ -34,7 +38,8 @@ const Steps = () => {
           <div>
             <p className="text-xl font-medium">Download image</p>
             <p className="text-sm text-neutral-500 mt-1">
-              This is a demo text, will replace it later. <br /> This is a demo
+              Save the processed image to <br /> your device and use it wherever{" "}
+              <br /> you need.
             </p>
           </div>
         </div>
