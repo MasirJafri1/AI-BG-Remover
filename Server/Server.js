@@ -14,7 +14,6 @@ await connectDB();
 const allowedOrigins = [
   "https://blankify-io.vercel.app",
   "http://localhost:5173",
-  "https://blankify-io.pages.dev",
 ];
 
 //MiddleWares
