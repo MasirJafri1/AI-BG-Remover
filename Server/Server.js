@@ -14,6 +14,7 @@ await connectDB();
 const allowedOrigins = [
   "https://blankify-io.vercel.app",
   "http://localhost:5173",
+  "https://blankify-io.pages.dev",
 ];
 
 //MiddleWares
@@ -27,7 +28,7 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true, 
+    credentials: true,
   })
 );
 
